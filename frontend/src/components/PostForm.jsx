@@ -1,26 +1,38 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
+import './TimeSlider.css'; 
 
-const token = localStorage.getItem('token');
-const decoded = jwtDecode(token);           // トークンをデコード
-const userId = decoded.userId; 
+
+
+
 
 const PostForm = () => {
   const [subject, setSubject] = useState('');
   const [time, setTime] = useState('');
+  const [timeSlider, setTimeSlider] = useState(60);
   const [comment, setComment] = useState('');
+
+  const token = localStorage.getItem('token');
+
+  if (!token) {
+    console.error('Token is missing or invalid');
+    return <div>Token not found or invalid. Please log in again.</div>;
+  }
+  const decoded = jwtDecode(token);           // トークンをデコード
+  const userId = decoded.userId; 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+     
 
     if (!subject || !time || !comment) {
   alert("すべての項目を入力してください！");
   return;
 }
 
-    const token = localStorage.getItem('token'); // ログイン後に保存されたトークン
-    const userId = "685279f07ef552a74045093d"; // ※あとで自動化する！
+ 
 
     try {
       await axios.post('http://localhost:5000/api/posts', {
@@ -43,28 +55,73 @@ const PostForm = () => {
     }
   };
 
+  // 時間の選択方法がスライダーで選ばれた場合
+  const handleSliderChange = (e) => {
+    setTimeSlider(e.target.value);
+    setTime(e.target.value); // 入力ボックスが空のときにスライダーの値を使用
+  };
+
+  // 時間を直接入力した場合
+  const handleInputChange = (e) => {
+    setTime(e.target.value);
+  };
+
   return (
-    <div>
+   <div className="container my-4">
       <h2>勉強記録を投稿</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="教科・内容"
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
-        /><br />
-        <input
-          type="number"
-          placeholder="勉強時間（分）"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-        /><br />
-        <textarea
-          placeholder="コメント"
-          value={comment}
-          onChange={(e) => setComment(e.target.value)}
-        /><br />
-        <button type="submit">投稿</button>
+        <div className="mb-3">
+          <label htmlFor="subject" className="form-label">科目・内容</label>
+          <input
+            type="text"
+            id="subject"
+            className="form-control"
+            placeholder="例: 数学"
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+          />
+        </div>
+         <div className="mb-3">
+          <label htmlFor="time" className="form-label">勉強時間</label>
+          <div className="d-flex">
+            <div className="mr-3" style={{ flex: 1 }}>
+              <label htmlFor="timeInput" className="form-label">時間を入力 (分)</label>
+              <input
+                type="number"
+                id="timeInput"
+                className="form-control"
+                placeholder="例: 60"
+                value={time}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div style={{ flex: 2 }}>
+              <label htmlFor="timeSlider" className="form-label">または、スライダーで選択</label>
+              <input
+                type="range"
+                id="timeSlider"
+                className="form-control-range"
+                min="10"
+                max="480"
+                step="10"
+                value={timeSlider}
+                onChange={handleSliderChange}
+              />
+              <p>{timeSlider} 分</p>
+            </div>
+          </div>
+        </div>
+        <div className="mb-3">
+          <label htmlFor="comment" className="form-label">コメント</label>
+          <textarea
+            id="comment"
+            className="form-control"
+            rows="3"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+          ></textarea>
+        </div>
+        <button type="submit" className="btn btn-primary">投稿</button>
       </form>
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import './PostList.css'
 const PostList = () => {
   const [posts, setPosts] = useState([]);
 
@@ -18,22 +18,24 @@ const PostList = () => {
   }, []);
 
   return (
-    <div>
-      <h2>投稿一覧</h2>
-      {posts.length === 0 ? (
-        <p>投稿がまだありません。</p>
-      ) : (
-        <ul>
-          {posts.map((post) => (
-            <li key={post._id}>
-              <strong>{post.subject}</strong> - {post.time}分<br />
-              {post.comment}<br />
-              投稿者: {post.userId?.username || "不明"}<br />
-              <hr />
-            </li>
-          ))}
-        </ul>
-      )}
+   <div className="container mt-4">
+      <h2 className="mb-4">投稿一覧</h2>
+      <div className="row">
+        {posts.map((post) => (
+          <div key={post._id} className="col-md-12 mb-4">
+            <div className="card shadow-sm border-0">
+              <div className="card-body">
+                <h5 className="card-title">{post.subject}</h5>
+                <p className="card-text">{post.comment}</p>
+                <div className="d-flex justify-content-between">
+                  <small className="text-muted">投稿者: {post.userId.username || '不明'}</small>
+                  <small className="text-muted">{post.time} 分間</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
