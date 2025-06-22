@@ -30,6 +30,9 @@ const PostList = () => {
                 <div className="d-flex justify-content-between">
                   <small className="text-muted">投稿者: {post.userId.username || '不明'}</small>
                   <small className="text-muted">{post.time} 分間</small>
+                    <small className="text-muted">
+          投稿日: {new Date(post.date).toLocaleString('ja-JP')}
+        </small>
                 </div>
               </div>
             </div>

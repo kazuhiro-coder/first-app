@@ -26,6 +26,7 @@ router.post('/', authenticateToken, async (req, res) => {
 // GET /api/posts  ← 投稿一覧を取得
 router.get('/', async (req, res) => {
   try {
+   
     const posts = await Post.find().sort({ date: -1 }).populate('userId', 'username');
     res.json(posts);
   } catch (err) {

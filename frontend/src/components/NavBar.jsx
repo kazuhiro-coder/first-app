@@ -11,7 +11,7 @@ const navigate = useNavigate();
   return (
   <nav className="navbar navbar-expand-lg navbar bg-dark border-bottom border-bottom-dark" data-bs-theme="dark" >
       <div className="container-fluid">
-        <Link className="navbar-brand" to="/">MyApp</Link>
+        <Link className="navbar-brand" to="/">StudyApp</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
@@ -23,6 +23,9 @@ const navigate = useNavigate();
             <li className="nav-item">
               <Link className="nav-link active" to="/list">投稿一覧</Link>
             </li>
+            <li className="nav-item">
+               <Link className="nav-link" to="/ranking">ランキング</Link>
+          </li>
           </ul>
           <ul className="navbar-nav ms-auto"> {/* 右側に配置するためにms-autoを使用 */}
             {token ? (
@@ -30,9 +33,18 @@ const navigate = useNavigate();
                 <button className="btn btn-outline-danger" onClick={handleLogout}>ログアウト</button>
               </li>
             ) : (
-              <li className="nav-item">
-                <Link className="btn btn-outline-primary" to="/login">ログイン</Link>
-              </li>
+               <>
+      <li className="nav-item me-2">
+        <Link className="btn btn-outline-primary" to="/login">
+          ログイン
+        </Link>
+      </li>
+      <li className="nav-item">
+        <Link className="btn btn-outline-success" to="/register">
+          新規登録
+        </Link>
+      </li>
+    </>
             )}
           </ul>
         </div>

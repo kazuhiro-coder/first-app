@@ -5,6 +5,9 @@ import Login from './components/Login';
 import PostForm from './components/PostForm';
 import PostList from './components/PostList';
 import PrivateRoute from './components/PrivateRoute';
+import Ranking from './components/Ranking';
+import Register from './components/Register';
+
 
 function App() {
   const [token, setToken] = useState(localStorage.getItem('token') || '');
@@ -20,6 +23,7 @@ function App() {
       <NavBar token={token} handleLogout={handleLogout}/>
       <Routes>
         <Route path="/login" element={<Login setToken={setToken} />} />
+         <Route path="/register" element={<Register />} />
         <Route path="/posts" element={
           <PrivateRoute>
             <PostForm />
@@ -28,6 +32,11 @@ function App() {
         <Route path="/list" element={
           <PrivateRoute>
             <PostList />
+          </PrivateRoute>
+        } />
+        <Route path="/ranking" element={
+          <PrivateRoute>
+            <Ranking />
           </PrivateRoute>
         } />
       </Routes>
