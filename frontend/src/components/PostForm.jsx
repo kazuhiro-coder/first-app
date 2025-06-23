@@ -35,8 +35,7 @@ const PostForm = () => {
  
 
     try {
-      const API_BASE = process.env.REACT_APP_API_BASE || '';
-      await axios.post(`${API_BASE}/api/posts`, {
+      await axios.post('/api/posts', {
         userId,
         subject,
         time,
