@@ -6,11 +6,11 @@ const Ranking = () => {
   const [range, setRange] = useState('weekly'); // 初期は weekly
 
   useEffect(() => {
-    console.log("★現在のrange（useEffect発火時）:", range); 
+    
     const fetchRanking = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/ranking?range=${range}`);
-        console.log("★取得したランキングデータ：", res.data);
+       const API_BASE = process.env.REACT_APP_API_BASE || '';
+       const res = await axios.get(`${API_BASE}/api/ranking?range=${range}`);
         setRanking(res.data);
       } catch (err) {
         console.error('ランキング取得失敗:', err);

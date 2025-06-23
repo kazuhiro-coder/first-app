@@ -35,7 +35,8 @@ const PostForm = () => {
  
 
     try {
-      await axios.post('http://localhost:5000/api/posts', {
+      const API_BASE = process.env.REACT_APP_API_BASE || '';
+      await axios.post(`${API_BASE}/api/posts`, {
         userId,
         subject,
         time,

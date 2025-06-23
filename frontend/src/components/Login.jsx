@@ -11,10 +11,11 @@ const Login = ({ setToken }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/login', {
-        username,
-        password,
-      });
+      const API_BASE = process.env.REACT_APP_API_BASE || ''; 
+      const res = await axios.post(`${API_BASE}/api/login`, {
+  username,
+  password,
+});
       const token = res.data.token;
       localStorage.setItem('token', token);     // トークン保存
       setToken(token);                          // Appに状態渡す

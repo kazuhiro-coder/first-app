@@ -7,7 +7,8 @@ const PostList = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/posts');
+        const API_BASE = process.env.REACT_APP_API_BASE || '';
+        const res = await axios.get(`${API_BASE}/api/login`);
         setPosts(res.data);
       } catch (err) {
         console.error('投稿取得エラー:', err);
