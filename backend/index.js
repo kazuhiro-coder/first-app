@@ -24,6 +24,8 @@ app.use('/api', authRoutes);
 const postRoutes = require('./routes/posts');
 app.use('/api/posts', postRoutes);
 
+const dailyPostsRouter = require('./routes/dailyPosts');
+app.use('/api/dailyPosts', dailyPostsRouter);
 // MongoDB接続
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log('✅ MongoDB接続成功'))

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import './Login.css'; // スタイルシートをインポート
 
 const Login = ({ setToken }) => {
   const [username, setUsername] = useState('');
@@ -27,42 +27,59 @@ const Login = ({ setToken }) => {
   };
 
   return (
-     <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="card">
-            <div className="card-body">
-              <h2 className="text-center mb-4">ログイン</h2>
-              <form onSubmit={handleLogin}>
-                <div className="mb-3">
-                  <label htmlFor="username" className="form-label">ユーザー名</label>
-                  <input
-                    type="text"
-                    id="username"
-                    className="form-control"
-                    placeholder="ユーザー名"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                  />
-                </div>
-                <div className="mb-3">
-                  <label htmlFor="password" className="form-label">パスワード</label>
-                  <input
-                    type="password"
-                    id="password"
-                    className="form-control"
-                    placeholder="パスワード"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </div>
-                <button type="submit" className="btn btn-primary w-100">ログイン</button>
-              </form>
-            </div>
+    <>
+     <div className="floating-element"></div>
+      <div className="floating-element"></div>
+      <div className="floating-element"></div>
+
+<div class="login-wrapper">
+      <div className=" login-container">
+        <div className="logo-section">
+          <div className="logo">StudyApp</div>
+          <h1 className="login-title">ログイン</h1>
+        </div>
+
+        <form className="login-form" id="loginForm" onSubmit={handleLogin}>
+          <div className="form-group">
+            <label htmlFor="username" className="form-label">ユーザー名</label>
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              className="form-input" 
+              placeholder="ユーザー名を入力"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
           </div>
+
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">パスワード</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              className="form-input" 
+              placeholder="パスワードを入力"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit" className="login-btn">
+            ログイン
+            <span className="loading" id="loading"></span>
+          </button>
+        </form>
+
+        <div className="additional-links">
+          <a href="#">パスワードを忘れた方はこちら</a>
         </div>
       </div>
-    </div>
+      </div>
+      </>
   );
 };
 

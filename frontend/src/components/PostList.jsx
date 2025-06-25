@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './PostList.css'
+import './Home.css';
 const PostList = () => {
   const [posts, setPosts] = useState([]);
 
@@ -19,26 +19,25 @@ const PostList = () => {
   }, []);
 
   return (
-   <div className="container mt-4">
-      <h2 className="mb-4">投稿一覧</h2>
+  <div className="container mt-5">
+      <h2 className="text-white mb-4"> 投稿一覧</h2>
       <div className="row">
-        {posts.map((post) => (
-          <div key={post._id} className="col-md-12 mb-4">
-            <div className="card shadow-sm border-0">
-              <div className="card-body">
-                <h5 className="card-title">{post.subject}</h5>
-                <p className="card-text">{post.comment}</p>
-                <div className="d-flex justify-content-between">
-                  <small className="text-muted">投稿者: {post.userId.username || '不明'}</small>
-                  <small className="text-muted">{post.time} 分間</small>
-                    <small className="text-muted">
-          投稿日: {new Date(post.date).toLocaleString('ja-JP')}
-        </small>
-                </div>
-              </div>
-            </div>
+         {posts.map((post) => (
+    <div key={post._id} className="col-md-12 ">
+      <div className="study-item d-flex justify-content-between align-items-center">
+        <div className="study-info">
+          <h3>{post.subject}</h3>
+          <p className="study-comment">{post.comment}</p>
+           <div className="study-meta">
+            {new Date(post.date).toLocaleString('ja-JP')} | {post.userId?.username || '不明'}
           </div>
-        ))}
+        </div>
+        <div className="study-duration">
+          {post.time}分
+        </div>
+      </div>
+    </div>
+  ))}
       </div>
     </div>
   );

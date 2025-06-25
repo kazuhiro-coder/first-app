@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './Ranking.css'; // スタイルシートをインポート
 
 const Ranking = () => {
   const [ranking, setRanking] = useState([]);
   const [range, setRange] = useState('weekly'); // 初期は weekly
 
+  
   useEffect(() => {
     
     const fetchRanking = async () => {
@@ -12,6 +14,7 @@ const Ranking = () => {
        const API_BASE = process.env.REACT_APP_API_BASE || '';
        const res = await axios.get(`${API_BASE}/api/ranking?range=${range}`);
         setRanking(res.data);
+        console.log('ランキングデータ:', res.data);
       } catch (err) {
         console.error('ランキング取得失敗:', err);
       }
@@ -20,28 +23,39 @@ const Ranking = () => {
     fetchRanking();
   }, [range]); // range が変わるたびに再取得
 
-  return (
-    <div className="container mt-5">
-      <h2 className="text-center mb-4">勉強時間ランキング</h2>
 
-      {/* ▼ 範囲切り替えボタン */}
-      <div className="text-center mb-4">
-        <button className="btn btn-outline-primary mx-1" onClick={() => { console.log("★日ボタン押下"); setRange('daily');}}>日</button>
-        <button className="btn btn-outline-primary mx-1" onClick={() =>{ console.log("★週ボタン押下"); setRange('weekly');}}>週</button>
-        <button className="btn btn-outline-primary mx-1" onClick={() => { console.log("★月ボタン押下"); setRange('monthly');}}>月</button>
+  return (
+   <div className="container">
+    <h1 class="page-title">勉強時間ランキング</h1>
+
+      <div className=" period-filter mb-4">
+        {['daily', 'weekly', 'monthly'].map((r) => (
+          <button
+            key={r}
+            className={`btn ${range === r ? 'btn-primary' : ''} period-btn` }
+            onClick={() => setRange(r)}
+          >
+            {r === 'daily' ? '日' : r === 'weekly' ? '週' : '月'}
+          </button>
+        ))}
       </div>
 
-      {/* ▼ ランキングリスト */}
-      <ol className="list-group list-group-numbered">
+      <div class="ranking-container">
         {ranking.map((user, index) => (
-          <li key={index} className="list-group-item d-flex justify-content-between align-items-start">
-            <div className="ms-2 me-auto">
-              <div className="fw-bold">{user.username}</div>
-              合計 {user.totalTime} 分
+          <div key={index} class="ranking-item">
+            <div class={`rank-badge ${['rank-1', 'rank-2', 'rank-3'][index] || 'rank-other'}`}>
+              {index + 1}
             </div>
-          </li>
-        ))}
-      </ol>
+            <div class="user-info">
+              <div class="user-name">{user.username}</div>
+              <div class= "user-details">
+                {range === 'daily' ? '日間' : range === 'weekly' ? '週間' : '月間'}学習時間 {index + 1}位
+              </div>
+            </div>
+            <div class="study-time" >{user.totalTime}分</div>
+          </div>
+        ))} 
+      </div>
     </div>
   );
 };
