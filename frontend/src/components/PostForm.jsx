@@ -18,6 +18,7 @@ const [posts, setPosts] = useState([]);
  
   const decoded = jwtDecode(token);           // トークンをデコード
   const userId = decoded.userId; 
+  const API_BASE = process.env.REACT_APP_API_BASE || ''; 
 
 useEffect(() => {
    if (!token) {
@@ -27,9 +28,10 @@ useEffect(() => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get('/api/dailyPosts', {
-        headers: { Authorization: `Bearer ${token}` }
-      });
+       const res = await axios.get(`${API_BASE}/api/dailyPosts`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+     
       setPosts(res.data);
       console.log("投稿取得成功", res.data);
     } catch (err) {
