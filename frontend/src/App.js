@@ -22,7 +22,7 @@ function App() {
     <Router>
       <NavBar token={token} handleLogout={handleLogout}/>
       <Routes>
-        <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path="/" element={<PrivateRoute token={token} handleLogout={handleLogout}><Home token={token} handleLogout={handleLogout}/></PrivateRoute>} />
         <Route path="/login" element={<Login setToken={setToken} />} />
          <Route path="/register" element={<Register />} />
         <Route path="/posts" element={

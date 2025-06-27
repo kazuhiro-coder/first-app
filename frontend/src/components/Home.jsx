@@ -29,17 +29,7 @@ const Home = () => {
 console.log("Home画面読み込みました");
   return (
     <>
-      <header className="header">
-        <div className="logo">StudyApp</div>
-        <nav className="nav">
-          <a href="#" className="active">ホーム</a>
-          <a href="#">投稿フォーム</a>
-          <a href="#">投稿一覧</a>
-          <a href="#">ランキング</a>
-        </nav>
-        <a href="#" className="logout-btn">ログアウト</a>
-      </header>
-
+    
       <div className="container">
         <section className="welcome-section">
           <h1 className="welcome-title">お疲れ様です！</h1>

@@ -45,6 +45,16 @@ html, body {
   color: white;
 }
 
+.nav link {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav link:hover, .nav a.active {
+  color: white;
+}
+
 .logout-btn {
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.3);
